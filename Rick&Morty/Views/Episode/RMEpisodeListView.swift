@@ -19,7 +19,7 @@ final class RMEpisodeListView: UIView {
 
     public weak var delegate: RMEpisodeListViewDelegate?
     
-    private let viewModel = RMCharacterListViewViewModel()
+    private let viewModel = RMEpisodeListViewViewModel()
     
     private let spinner: UIActivityIndicatorView = {
         
@@ -40,8 +40,8 @@ final class RMEpisodeListView: UIView {
         collectionView.alpha = 0
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.register(
-            RMCharacterCollectionViewCell.self,
-            forCellWithReuseIdentifier: RMCharacterCollectionViewCell.cellIdentifier
+            RMCharacterEpisodeCollectionViewCell.self,
+            forCellWithReuseIdentifier: RMCharacterEpisodeCollectionViewCell.cellIdentifier
         )
         collectionView.register(
             RMFooterLoadingCollectionReusableView.self,
@@ -59,7 +59,7 @@ final class RMEpisodeListView: UIView {
         addConstraints()
         spinner.startAnimating()
         viewModel.delegate = self
-        viewModel.fetchCharacter()
+        viewModel.fetchEpisodes()
         setUpCollectionView()
     }
     
@@ -91,12 +91,7 @@ final class RMEpisodeListView: UIView {
 
 
 extension RMEpisodeListView: RMEpisodeListViewViewModelDelegate {
-
-    func didSelectCharacter(_ character: RMCharacter) {
-        delegate?.rmCharacterListView(self, didSelectCharacter: character)
-    }
-    
-    func didLoadInitialCharacter() {
+    func didLoadInitialEpisodes() {
         spinner.stopAnimating()
         collectionView.reloadData()
         collectionView.isHidden = false
@@ -105,11 +100,14 @@ extension RMEpisodeListView: RMEpisodeListViewViewModelDelegate {
         }
     }
     
-    func didLoadMoreCharacters(with newIndexPaths: [IndexPath]) {
+    func didLoadMoreEpisodes(with newIndexPaths: [IndexPath]) {
         collectionView.performBatchUpdates {
             self.collectionView.insertItems(at: newIndexPaths)
         }
     }
     
-    
+    func didSelectEpisode(_ episode: RMEpisode) {
+        delegate?.rmEpisodeListView(self, didSelectEpisode: episode)
+    }
+
 }
