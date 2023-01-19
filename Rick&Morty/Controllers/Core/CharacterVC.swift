@@ -18,7 +18,7 @@ final class CharacterVC: UIViewController, RMCharacterListViewDelegate {
         title = "Character"
         setUpView()
     }
-    
+ 
     private func setUpView() {
         characterListView.delegate = self
         view.addSubview(characterListView)
