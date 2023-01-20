@@ -60,21 +60,20 @@ final class RMCharacterCollectionViewCell: UICollectionViewCell {
     
     private func addConstraints() {
         NSLayoutConstraint.activate([
-            statusLabel.heightAnchor.constraint(equalToConstant: 28),
-            nameLabel.heightAnchor.constraint(equalToConstant: 28),
-            
-            statusLabel.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 8),
-            statusLabel.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -8),
-            nameLabel.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 8),
-            nameLabel.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -8),
-            
-            statusLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -4),
-            nameLabel.bottomAnchor.constraint(equalTo: statusLabel.topAnchor),
-            
             imageView.topAnchor.constraint(equalTo: contentView.topAnchor),
             imageView.leftAnchor.constraint(equalTo: contentView.leftAnchor),
             imageView.rightAnchor.constraint(equalTo: contentView.rightAnchor),
-            imageView.bottomAnchor.constraint(equalTo: nameLabel.topAnchor, constant: -4)
+            imageView.bottomAnchor.constraint(equalTo: nameLabel.topAnchor, constant: -4),
+            
+            nameLabel.heightAnchor.constraint(equalToConstant: 28),
+            nameLabel.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 8),
+            nameLabel.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -8),
+            nameLabel.bottomAnchor.constraint(equalTo: statusLabel.topAnchor),
+            
+            statusLabel.heightAnchor.constraint(equalToConstant: 28),
+            statusLabel.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 8),
+            statusLabel.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -8),
+            statusLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -4)
         ])
     }
     

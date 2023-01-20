@@ -9,13 +9,6 @@ import XCTest
 @testable import Rick_Morty
 
 final class Rick_MortyTests: XCTestCase {
-    
-    func keyNotFound(
-        codingPath: [CodingKeys(stringValue: "results", intValue: nil), _JSONKey(stringValue: "Index 0", intValue: 0)],
-                     debugDescription: "No value associated with key CodingKeys(stringValue: \"character\", intValue: nil) (\"character\").",
-                     underlyingError: nil) {
-        
-    }
 
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.

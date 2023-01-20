@@ -209,6 +209,7 @@ extension RMCharacterListViewViewModel: UICollectionViewDataSource, UICollection
 
 
 //MARK: - ScrollView
+
 extension RMCharacterListViewViewModel: UIScrollViewDelegate {
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
