@@ -5,7 +5,7 @@
 //  Created by Dmytro Ivanenko on 10.01.2023.
 //
 
-import Foundation
+import UIKit
 
 // Hiding all other elements from model and will take only from this list,
 protocol RMEpisodeDataRender {
@@ -20,6 +20,8 @@ final class RMCharacterEpisodeCollectionViewCellViewModel: Hashable, Equatable {
     private var isFetching = false
     private var dataBlock: ((RMEpisodeDataRender) -> Void)?
     
+    public let borderColor: UIColor
+    
     private var episode: RMEpisode? {
         didSet {
             guard let model = episode else {
@@ -32,8 +34,9 @@ final class RMCharacterEpisodeCollectionViewCellViewModel: Hashable, Equatable {
     
     //MARK: - Init
 
-    init(episodeDataUrl: URL?) {
+    init(episodeDataUrl: URL?, borderColor: UIColor = .systemBlue) {
         self.episodeDataUrl = episodeDataUrl
+        self.borderColor = borderColor
     }
     
     
