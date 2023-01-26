@@ -14,7 +14,7 @@ protocol RMEpisodeDetailViewViewModelDelegate: AnyObject {
 final class RMEpisodeDetailViewViewModel {
     
     private let endpointUrl: URL?
-
+    
     private var dataTuple: (episode: RMEpisode, characters: [RMCharacter])? {
         didSet {
             createCellviewModels()
@@ -32,11 +32,18 @@ final class RMEpisodeDetailViewViewModel {
     public private(set) var cellViewModels: [Sectiontype] = []
     
     //MARK: - Init
-
+    
     init(endpointUrl: URL?) {
         self.endpointUrl = endpointUrl
     }
-  
+    
+    public func character(at index: Int) -> RMCharacter? {
+        guard let dataTuple = dataTuple else {
+            return nil
+        }
+        return dataTuple.characters[index]
+    }
+    
     //MARK: - Private
     
     public func createCellviewModels() {
@@ -46,12 +53,19 @@ final class RMEpisodeDetailViewViewModel {
         }
         let episode = dataTuple.episode
         let characters = dataTuple.characters
+        
+        // Formatting date
+        var createdString = episode.created
+        if let date = RMCharacterInfoCollectionViewCellViewModel.dateFormater.date(from: episode.created) {
+            createdString = RMCharacterInfoCollectionViewCellViewModel.shaortDateFormater.string(from: date)
+        }
+        
         cellViewModels = [
             .information(viewModels: [
                 .init(title: "Episode Name", value: episode.name),
                 .init(title: "Air Date", value: episode.air_date),
                 .init(title: "Episode", value: episode.episode),
-                .init(title: "Created", value: episode.created)
+                .init(title: "Created", value: createdString)
             ]),
             .characters(viewModel: characters.compactMap({ character in
                 return RMCharacterCollectionViewCellViewModel(
