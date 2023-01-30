@@ -53,7 +53,7 @@ final class RMCharacterListViewViewModel: NSObject {
     public func fetchCharacter() {
 
         RMServise.shared.execute(
-            .listCharactersRequets,
+            .listCharactersRequest,
             expecting: RMGetAllCharactersResponse.self
         ) { [weak self] result in
             switch result {
