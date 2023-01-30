@@ -7,7 +7,6 @@
 
 import UIKit
 
-
 // VC to show details about single episode
 final class RMEpisodeDetailViewController: UIViewController, RMEpisodeDetailViewViewModelDelegate, RMEpisodeDetailViewDelegate {
  
