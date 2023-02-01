@@ -51,11 +51,11 @@ final class RMLocationTableViewCell: UITableViewCell {
             nameLabel.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 10),
             nameLabel.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -10),
             
-            typeLabel.topAnchor.constraint(equalTo: nameLabel.topAnchor, constant: 10),
+            typeLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 10),
             typeLabel.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 10),
             typeLabel.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -10),
             
-            dimensionLabel.topAnchor.constraint(equalTo: typeLabel.topAnchor, constant: 10),
+            dimensionLabel.topAnchor.constraint(equalTo: typeLabel.bottomAnchor, constant: 10),
             dimensionLabel.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 10),
             dimensionLabel.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -10),
             dimensionLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10)

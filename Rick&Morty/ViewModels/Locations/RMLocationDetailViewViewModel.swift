@@ -95,7 +95,7 @@ import Foundation
         }
         
         private func fetchRelatedCharachter(location: RMLocation) {
-            let requests: [RMRequest] = location.residence.compactMap({
+            let requests: [RMRequest] = location.residents.compactMap({
                 return URL(string: $0)
             }).compactMap({
                 return RMRequest(url: $0)
