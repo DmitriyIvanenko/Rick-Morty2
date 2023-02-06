@@ -39,14 +39,14 @@ class RMSearchViewController: UIViewController {
     }
     
     private let viewModel: RMSearchViewViewModel
-    private let searcView: RMSearchView
+    private let searchView: RMSearchView
     
     //MARK: - Init
     
     init(config: Config) {
         let viewModel = RMSearchViewViewModel(config: config)
         self.viewModel = viewModel
-        self.searcView = RMSearchView(frame: .zero, viewModel: viewModel)
+        self.searchView = RMSearchView(frame: .zero, viewModel: viewModel)
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -60,13 +60,21 @@ class RMSearchViewController: UIViewController {
         super.viewDidLoad()
         title = viewModel.config.type.title
         view.backgroundColor = .systemBackground
-        view.addSubview(searcView)
+        view.addSubview(searchView)
         addConstraints()
         navigationItem.rightBarButtonItem = UIBarButtonItem(
             title: "search",
             style: .done,
             target: self,
-            action: #selector(didTapExecuteSearch))
+            action: #selector(didTapExecuteSearch)
+        )
+        searchView.delegate = self
+    }
+    
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        searchView.presentKeyboard()
     }
     
     @objc
@@ -77,11 +85,20 @@ class RMSearchViewController: UIViewController {
 
     private func addConstraints() {
         NSLayoutConstraint.activate([
-            searcView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            searcView.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor),
-            searcView.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor),
-            searcView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+            searchView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            searchView.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor),
+            searchView.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor),
+            searchView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
+    }
+
+}
+
+// MARK: - RMSearchViewDelegate
+
+extension RMSearchViewController: RMSearchViewDelegate {
+    func rmSearchView(_ inputView: RMSearchView, didSelectOption option: RMSearchInputViewViewModel.DynamicOptions) {
+        print("Show Picker")
     }
 
 }
