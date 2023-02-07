@@ -56,6 +56,7 @@
 		6161F91629891EA700A53077 /* RMNoSearchResultsViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6161F91529891EA700A53077 /* RMNoSearchResultsViewViewModel.swift */; };
 		6161F91829892E9700A53077 /* RMSearchInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6161F91729892E9700A53077 /* RMSearchInputView.swift */; };
 		6161F91A29892EC000A53077 /* RMSearchInputViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6161F91929892EC000A53077 /* RMSearchInputViewViewModel.swift */; };
+		6161F91C299282E200A53077 /* RMSearchOptionPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6161F91B299282E100A53077 /* RMSearchOptionPickerViewController.swift */; };
 		6163A6232975665E0043B019 /* RMEpisodeDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6163A6222975665E0043B019 /* RMEpisodeDetailViewController.swift */; };
 		6163A625297587110043B019 /* RMAPICacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6163A624297587110043B019 /* RMAPICacheManager.swift */; };
 		6163A6272976896F0043B019 /* RMEpisodeDetailViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6163A6262976896E0043B019 /* RMEpisodeDetailViewViewModel.swift */; };
@@ -137,6 +138,7 @@
 		6161F91529891EA700A53077 /* RMNoSearchResultsViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RMNoSearchResultsViewViewModel.swift; sourceTree = "<group>"; };
 		6161F91729892E9700A53077 /* RMSearchInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RMSearchInputView.swift; sourceTree = "<group>"; };
 		6161F91929892EC000A53077 /* RMSearchInputViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RMSearchInputViewViewModel.swift; sourceTree = "<group>"; };
+		6161F91B299282E100A53077 /* RMSearchOptionPickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RMSearchOptionPickerViewController.swift; sourceTree = "<group>"; };
 		6163A6222975665E0043B019 /* RMEpisodeDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RMEpisodeDetailViewController.swift; sourceTree = "<group>"; };
 		6163A624297587110043B019 /* RMAPICacheManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RMAPICacheManager.swift; sourceTree = "<group>"; };
 		6163A6262976896E0043B019 /* RMEpisodeDetailViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RMEpisodeDetailViewViewModel.swift; sourceTree = "<group>"; };
@@ -421,6 +423,15 @@
 			path = Search;
 			sourceTree = "<group>";
 		};
+		6161F91D2992886B00A53077 /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				6158D614298141C300EF19A5 /* RMSearchViewController.swift */,
+				6161F91B299282E100A53077 /* RMSearchOptionPickerViewController.swift */,
+			);
+			path = Search;
+			sourceTree = "<group>";
+		};
 		618267D6296DC98A00A18944 /* CharacterDetails */ = {
 			isa = PBXGroup;
 			children = (
@@ -455,9 +466,9 @@
 		61F81D24296737D800BFBF36 /* Other */ = {
 			isa = PBXGroup;
 			children = (
+				6161F91D2992886B00A53077 /* Search */,
 				61F81D252967382900BFBF36 /* RMCharacterDetailVC.swift */,
 				6163A6222975665E0043B019 /* RMEpisodeDetailViewController.swift */,
-				6158D614298141C300EF19A5 /* RMSearchViewController.swift */,
 				6161F9062987DE8100A53077 /* RMLocationDetailViewController.swift */,
 			);
 			path = Other;
@@ -623,6 +634,7 @@
 				611C20E22976C91600CBB501 /* RMGetAllEpisodesResponse.swift in Sources */,
 				6163A6272976896F0043B019 /* RMEpisodeDetailViewViewModel.swift in Sources */,
 				6158D6182981630700EF19A5 /* RMEpisodeInfoCollectionViewCell.swift in Sources */,
+				6161F91C299282E200A53077 /* RMSearchOptionPickerViewController.swift in Sources */,
 				61F81D282967390A00BFBF36 /* RMCharacterDetailView.swift in Sources */,
 				6160DB562982CAA700A2B6C8 /* RMLocationViewViewModel.swift in Sources */,
 			);

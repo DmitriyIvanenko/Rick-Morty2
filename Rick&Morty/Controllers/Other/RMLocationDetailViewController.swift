@@ -61,6 +61,7 @@ final class RMLocationDetailViewController: UIViewController, RMLocationDetailVi
         let vc = RMCharacterDetailVC(viewModel: .init(character: character))
         vc.title = character.name
         vc.navigationItem.largeTitleDisplayMode = .never
+            
         navigationController?.pushViewController(vc, animated: true)
     }
     
