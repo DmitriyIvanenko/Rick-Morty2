@@ -19,10 +19,8 @@ final class RMSearchView: UIView {
     
     //MARK: - Subviews
     
-    // Search inputView(bar, selection buttons)
     private let searchInputView = RMSearchInputView()
-    
-    // No results view
+
     private let noResultsView = RMNosearchResultsView()
     
     // Results collectionView
@@ -39,6 +37,10 @@ final class RMSearchView: UIView {
         
         searchInputView.configure(with: RMSearchInputViewViewModel(type: viewModel.config.type))
         searchInputView.delegate = self
+        
+        viewModel.registerOptionChargeBlock { tuple in
+            self.searchInputView.update(option: tuple.0, value: tuple.1)
+        }
     }
     
     required init?(coder: NSCoder) {
