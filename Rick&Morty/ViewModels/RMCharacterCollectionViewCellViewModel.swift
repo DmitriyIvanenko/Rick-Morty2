@@ -30,7 +30,7 @@ final class RMCharacterCollectionViewCellViewModel: Hashable, Equatable {
     }
     
     public func fetchImage(completion: @escaping (Result<Data, Error>) -> Void) {
-        //TODO: Abstract to Image Manager
+        
         guard let url = characterImageUrl else {
             completion(.failure(URLError(.badURL)))
             return
