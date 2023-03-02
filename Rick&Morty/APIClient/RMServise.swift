@@ -37,7 +37,6 @@ final class RMServise {
             for: request.endpoint,
             url: request.url
         ) {
-//            print("Using cached API Response")
 
             do {
                 let result = try JSONDecoder().decode(type.self, from: cachedData)
@@ -53,7 +52,6 @@ final class RMServise {
             complition(.failure(RMServiseError.failedToCreateRequest))
             return
         }
-//        print("API Call: \(request.url?.absoluteString ?? "")")
         let task = URLSession.shared.dataTask(with: urlRequest) { [weak self] data, _, error in
             guard let data = data, error == nil else {
                 complition(.failure(error ?? RMServiseError.failedToGetData))

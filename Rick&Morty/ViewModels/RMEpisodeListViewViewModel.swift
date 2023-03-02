@@ -111,7 +111,6 @@ final class RMEpisodeListViewViewModel: NSObject {
                 strongSelf.appInfo = info
                 
                 print(moreResults.count)
-                //print(moreResults.first?.name)
                 
                 let originalCount = strongSelf.episodes.count
                 let newCount = moreResults.count

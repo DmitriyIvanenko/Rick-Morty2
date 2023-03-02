@@ -25,8 +25,6 @@ final class RMImageLoader {
         let key = url.absoluteString as NSString
         if let data = imageDataCache.object(forKey: key) {
             
-            //print("Reading from Chache \(key)") // Checking if it is working
-            
             completion(.success(data as Data)) // NSData == Data | NSString == String
             return
         }

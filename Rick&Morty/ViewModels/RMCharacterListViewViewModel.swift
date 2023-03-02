@@ -101,7 +101,6 @@ final class RMCharacterListViewViewModel: NSObject {
                 strongSelf.appInfo = info
                 
                 print(moreResults.count)
-                //print(moreResults.first?.name)
                 
                 let originalCount = strongSelf.characters.count
                 let newCount = moreResults.count
