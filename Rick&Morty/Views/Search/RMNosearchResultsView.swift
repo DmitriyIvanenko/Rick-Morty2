@@ -43,7 +43,7 @@ final class RMNosearchResultsView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private func  addConstraints() {
+    private func addConstraints() {
         NSLayoutConstraint.activate([
             iconView.widthAnchor.constraint(equalToConstant: 90),
             iconView.heightAnchor.constraint(equalToConstant: 90),
@@ -57,7 +57,7 @@ final class RMNosearchResultsView: UIView {
         ])
     }
     
-    private func  configure() {
+    private func configure() {
         label.text = vieModel.title
         iconView.image = vieModel.image
     }
