@@ -30,7 +30,34 @@ final class RMSearchResultsView: UIView {
         return table
     }()
     
+    private let collectionView: UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .vertical
+        layout.sectionInset = UIEdgeInsets(top: 0, left: 10, bottom: 10, right: 10)
+        layout.minimumLineSpacing = 20
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.isHidden = true
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        collectionView.register(
+            RMCharacterEpisodeCollectionViewCell.self,
+            forCellWithReuseIdentifier: RMCharacterEpisodeCollectionViewCell.cellIdentifier
+        )
+        collectionView.register(
+            RMCharacterCollectionViewCell.self,
+            forCellWithReuseIdentifier: RMCharacterCollectionViewCell.cellIdentifier
+        )
+        collectionView.register(
+            RMFooterLoadingCollectionReusableView.self,
+            forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter,
+            withReuseIdentifier: RMFooterLoadingCollectionReusableView.identifier
+        )
+        
+        return collectionView
+    }()
+    
     private var locationCellViewModels: [RMLocationTableViewCellViewModel] = []
+    
+    private var collectionViewCellViewModels: [any Hashable] = []
     
     // MARK: - Init
 
@@ -38,7 +65,7 @@ final class RMSearchResultsView: UIView {
         super.init(frame: frame)
         isHidden = true
         translatesAutoresizingMaskIntoConstraints = false
-        addSubviews(tableView)
+        addSubviews(tableView, collectionView)
         addConstraints()
     }
     
@@ -52,22 +79,29 @@ final class RMSearchResultsView: UIView {
         }
         switch viewModel {
         case .charachters(let viewModels):
+            self.collectionViewCellViewModels = viewModels
             setUpCollectionView()
         case .locations(let viewModels):
             setUpTableView(viewModels: viewModels)
         case .episodes(let viewModels):
+            self.collectionViewCellViewModels = viewModels
             setUpCollectionView()
         }
     }
     
     private func setUpCollectionView() {
-
+        self.tableView.isHidden = true
+        self.collectionView.isHidden = false
+        collectionView.delegate = self
+        collectionView.dataSource = self
+        collectionView.reloadData()
     }
     
     private func setUpTableView(viewModels: [RMLocationTableViewCellViewModel]) {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.isHidden = false
+        collectionView.isHidden = true
         self.locationCellViewModels = viewModels
         tableView.reloadData()
     }
@@ -77,7 +111,12 @@ final class RMSearchResultsView: UIView {
             tableView.topAnchor.constraint(equalTo: topAnchor),
             tableView.leftAnchor.constraint(equalTo: leftAnchor),
             tableView.rightAnchor.constraint(equalTo: rightAnchor),
-            tableView.bottomAnchor.constraint(equalTo: bottomAnchor)
+            tableView.bottomAnchor.constraint(equalTo: bottomAnchor),
+            
+            collectionView.topAnchor.constraint(equalTo: topAnchor),
+            collectionView.leftAnchor.constraint(equalTo: leftAnchor),
+            collectionView.rightAnchor.constraint(equalTo: rightAnchor),
+            collectionView.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
     }
     
@@ -109,4 +148,69 @@ extension RMSearchResultsView: UITableViewDataSource, UITableViewDelegate {
         delegate?.rmSearchResultsView(self, didTapLocationAt: indexPath.row)
     }
     
+}
+
+
+// MARK: - CollectionView
+
+extension RMSearchResultsView: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return collectionViewCellViewModels.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
+        let currentVieModel = collectionViewCellViewModels[indexPath.row]
+        
+        if let characterVM = currentVieModel as? RMCharacterCollectionViewCellViewModel {
+            
+            // Character cell
+            guard let cell = collectionView.dequeueReusableCell(
+                withReuseIdentifier: RMCharacterCollectionViewCell.cellIdentifier, for: indexPath
+            ) as? RMCharacterCollectionViewCell else {
+                fatalError("")
+            }
+            cell.configure(with: characterVM)
+            return cell
+        }
+        
+        // Episodes cell
+        guard let cell = collectionView.dequeueReusableCell(
+            withReuseIdentifier: RMCharacterEpisodeCollectionViewCell.cellIdentifier, for: indexPath
+        ) as? RMCharacterEpisodeCollectionViewCell else {
+            fatalError("")
+        }
+        if let episodeVM = currentVieModel as? RMCharacterEpisodeCollectionViewCellViewModel {
+            cell.configure(with: episodeVM)
+        }
+        return cell
+    }
+    
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        collectionView.deselectItem(at: indexPath, animated: true)
+        // Handle cell tap
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        
+        let currentVieModel = collectionViewCellViewModels[indexPath.row]
+        
+        let bounds = collectionView.bounds
+        
+        if currentVieModel is RMCharacterCollectionViewCellViewModel {
+            // Character cell size
+            let width = (bounds.width - 30) / 2
+            return CGSize(width: width, height: width * 1.5)
+        }
+        
+        // Episodes cell size
+        let width = bounds.width - 20
+        return CGSize(
+            width: width,
+            height: 100
+        )
+
+    }
 }

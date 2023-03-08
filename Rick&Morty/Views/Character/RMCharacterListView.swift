@@ -35,8 +35,7 @@ final class RMCharacterListView: UIView {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
         layout.sectionInset = UIEdgeInsets(top: 0, left: 10, bottom: 10, right: 10)
-//        layout.minimumInteritemSpacing = 0 // Horisontal spacing
-        layout.minimumLineSpacing = 20 // Vertical spacing
+        layout.minimumLineSpacing = 20
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.isHidden = true
         collectionView.alpha = 0
