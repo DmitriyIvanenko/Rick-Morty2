@@ -56,7 +56,7 @@ final class RMEpisodeListViewViewModel: NSObject {
     private var cellViewModels: [RMCharacterEpisodeCollectionViewCellViewModel] = []
     
     
-    private var appInfo: RMGetAllEpisodesResponse.Info? = nil
+    private var apiInfo: RMGetAllEpisodesResponse.Info? = nil
     
     
     /// Fetch initial set of episodes (20)
@@ -71,7 +71,7 @@ final class RMEpisodeListViewViewModel: NSObject {
                 let results = responseModel.results
                 let info = responseModel.info
                 self?.episodes = results
-                self?.appInfo = info
+                self?.apiInfo = info
                 DispatchQueue.main.async {
                     self?.delegate?.didLoadInitialEpisodes()
                 }
@@ -108,7 +108,7 @@ final class RMEpisodeListViewViewModel: NSObject {
                 print("Pre update: \(strongSelf.cellViewModels.count)")
                 let moreResults = responseModel.results
                 let info = responseModel.info
-                strongSelf.appInfo = info
+                strongSelf.apiInfo = info
                 
                 print(moreResults.count)
                 
@@ -144,8 +144,7 @@ final class RMEpisodeListViewViewModel: NSObject {
     
     
     public var shouldShowMoreIndicator: Bool {
-        return appInfo?.next != nil
-        
+        return apiInfo?.next != nil
     }
     
     
@@ -230,7 +229,7 @@ extension RMEpisodeListViewViewModel: UIScrollViewDelegate {
         guard shouldShowMoreIndicator,
               !isLoadingMoreCharacters,
               !cellViewModels.isEmpty,
-              let nextUrlString = appInfo?.next,
+              let nextUrlString = apiInfo?.next,
               let url = URL(string: nextUrlString)
         else {
             return

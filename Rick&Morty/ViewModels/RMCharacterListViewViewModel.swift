@@ -135,9 +135,7 @@ final class RMCharacterListViewViewModel: NSObject {
     
     public var shouldShowMoreIndicator: Bool {
         return appInfo?.next != nil
-        
     }
-    
     
 }
 
