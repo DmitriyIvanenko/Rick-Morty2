@@ -23,6 +23,14 @@ final class RMLocationView: UIView {
             UIView.animate(withDuration: 0.3) {
                 self.tableView.alpha = 1
             }
+            viewModel?.registerDidFinishPaginationBlock { [weak self] in
+                DispatchQueue.main.async {
+                    // Hiding Loading indicator
+                    self?.tableView.tableFooterView = nil
+                    // Reload Data
+                    self?.tableView.reloadData()
+                }
+            }
         }
     }
     
@@ -41,6 +49,7 @@ final class RMLocationView: UIView {
         spinner.hidesWhenStopped = true
         return spinner
     }()
+    
     
     //MARK: - Init
     
@@ -130,26 +139,21 @@ extension RMLocationView: UIScrollViewDelegate {
         }
         
         Timer.scheduledTimer(withTimeInterval: 0.2, repeats: false) { [weak self] t in
-            
             let offset = scrollView.contentOffset.y
             let totalContentHeight = scrollView.contentSize.height
             let totalScrollViewFixedHeight = scrollView.frame.size.height
             
             if offset >= (totalContentHeight - totalScrollViewFixedHeight - 120) {
                 DispatchQueue.main.async {
-                    self?.showLoadLoadingIndicator()
+                    self?.showLoadingIndicator()
                 }
                 viewModel.fetchAdditionalLocations()
-                
-                DispatchQueue.main.asyncAfter(deadline: .now()+3, execute: {
-                    self?.tableView.reloadData()
-                })
             }
             t.invalidate()
         }
     }
     
-    private func showLoadLoadingIndicator() {
+    private func showLoadingIndicator() {
         let footer = RMTableLoadingFooterView(frame: CGRect(x: 0, y: 0, width: frame.size.width, height: 100))
         tableView.tableFooterView = footer
     }
