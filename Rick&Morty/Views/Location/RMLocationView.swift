@@ -133,7 +133,7 @@ extension RMLocationView: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         guard let viewModel = viewModel,
               !viewModel.cellViewModels.isEmpty,
-              viewModel.shouldShowMoreIndicator,
+              viewModel.shouldShowLoadMoreIndicator,
               !viewModel.isLoadingMoreLocations else {
             return
         }

@@ -143,7 +143,7 @@ final class RMEpisodeListViewViewModel: NSObject {
     }
     
     
-    public var shouldShowMoreIndicator: Bool {
+    public var shouldShowLoadMoreIndicator: Bool {
         return apiInfo?.next != nil
     }
     
@@ -196,7 +196,7 @@ extension RMEpisodeListViewViewModel: UICollectionViewDataSource, UICollectionVi
     // Footer size
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
         
-        guard shouldShowMoreIndicator else {
+        guard shouldShowLoadMoreIndicator else {
             return .zero
         }
         
@@ -226,7 +226,7 @@ extension RMEpisodeListViewViewModel: UICollectionViewDataSource, UICollectionVi
 extension RMEpisodeListViewViewModel: UIScrollViewDelegate {
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        guard shouldShowMoreIndicator,
+        guard shouldShowLoadMoreIndicator,
               !isLoadingMoreCharacters,
               !cellViewModels.isEmpty,
               let nextUrlString = apiInfo?.next,

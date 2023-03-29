@@ -32,7 +32,7 @@ final class RMLocationViewViewModel {
     
     public private(set) var cellViewModels: [RMLocationTableViewCellViewModel] = []
     
-    public var shouldShowMoreIndicator: Bool {
+    public var shouldShowLoadMoreIndicator: Bool {
         return apiInfo?.next != nil
     }
 

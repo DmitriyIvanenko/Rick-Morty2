@@ -10,9 +10,7 @@ import UIKit
 protocol RMCharacterListViewViewModelDelegate: AnyObject {
     
     func didLoadInitialCharacter()
-    
     func didLoadMoreCharacters(with newIndexPaths: [IndexPath])
-    
     func didSelectCharacter(_ character: RMCharacter)
     
 }
@@ -20,12 +18,8 @@ protocol RMCharacterListViewViewModelDelegate: AnyObject {
 //View model to handle character list view logic
 final class RMCharacterListViewViewModel: NSObject {
     
-    
     public weak var delegate: RMCharacterListViewViewModelDelegate?
-    
-    
     private var isLoadingMoreCharacters = false
-    
     
     private var characters: [RMCharacter] = [] {
         didSet {
@@ -112,7 +106,7 @@ final class RMCharacterListViewViewModel: NSObject {
                 strongSelf.characters.append(contentsOf: moreResults)
                 
                 print("Post update: \(strongSelf.cellViewModels.count)")
-              
+                
                 
                 //MARK: - PROBLEM PLACE
                 
@@ -133,7 +127,7 @@ final class RMCharacterListViewViewModel: NSObject {
     }
     
     
-    public var shouldShowMoreIndicator: Bool {
+    public var shouldShowLoadMoreIndicator: Bool {
         return appInfo?.next != nil
     }
     
@@ -182,7 +176,7 @@ extension RMCharacterListViewViewModel: UICollectionViewDataSource, UICollection
     // Footer size
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
         
-        guard shouldShowMoreIndicator else {
+        guard shouldShowLoadMoreIndicator else {
             return .zero
         }
         
@@ -222,7 +216,7 @@ extension RMCharacterListViewViewModel: UICollectionViewDataSource, UICollection
 extension RMCharacterListViewViewModel: UIScrollViewDelegate {
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        guard shouldShowMoreIndicator,
+        guard shouldShowLoadMoreIndicator,
               !isLoadingMoreCharacters,
               !cellViewModels.isEmpty,
               let nextUrlString = appInfo?.next,
