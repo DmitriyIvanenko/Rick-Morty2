@@ -77,6 +77,94 @@ final class RMSearchResultViewModel {
             }
         }
     }
+    
+    public func fetchAdditionalResults(comletion: @escaping ([any Hashable]) -> Void) {
+        guard !isLoadingMoreResults else {
+            return
+        }
+        
+        guard let nextUrlString = next,
+              let url = URL(string: nextUrlString) else {
+            return
+        }
+        
+        isLoadingMoreResults = true
+        
+        guard let request = RMRequest(url: url) else {
+            isLoadingMoreResults = false
+            return
+        }
+        
+        switch results {
+            // Charachters
+        case .charachters(let existingResults):
+            RMServise.shared.execute(request, expecting: RMGetAllCharactersResponse.self) { [weak self] result in
+                guard let strongSelf = self else {
+                    return
+                }
+                
+                switch result {
+                case .success(let responseModel):
+                    let moreResults = responseModel.results
+                    let info = responseModel.info
+                    strongSelf.next = info.next // Capture new pagination url
+                    
+                    //print(info.next)
+                    
+                    let aditionalResults = moreResults.compactMap({
+                        return RMCharacterCollectionViewCellViewModel(characterName: $0.name, characterStatus:  $0.status, characterImageUrl: URL(string: $0.image))
+                    })
+                    var newResults: [RMCharacterCollectionViewCellViewModel] = []
+                    newResults = existingResults + aditionalResults
+                    strongSelf.results = .charachters(newResults)
+                    
+                    DispatchQueue.main.async {
+                        strongSelf.isLoadingMoreResults = false
+                        // Notify via callback
+                        comletion(newResults)
+                    }
+                case .failure(let failure):
+                    print(String(describing: failure))
+                    self?.isLoadingMoreResults = false
+                }
+            }
+            // Episodes
+        case .episodes(let existingResults):
+            RMServise.shared.execute(request, expecting: RMGetAllEpisodesResponse.self) { [weak self] result in
+                guard let strongSelf = self else {
+                    return
+                }
+                
+                switch result {
+                case .success(let responseModel):
+                    let moreResults = responseModel.results
+                    let info = responseModel.info
+                    strongSelf.next = info.next // Capture new pagination url
+                    
+                    //print(info.next)
+                    
+                    let aditionalResults = moreResults.compactMap({
+                        return RMCharacterEpisodeCollectionViewCellViewModel(episodeDataUrl: URL(string:  $0.url))
+                    })
+                    var newResults: [RMCharacterEpisodeCollectionViewCellViewModel] = []
+                    newResults = existingResults + aditionalResults
+                    strongSelf.results = .episodes(newResults)
+                    
+                    DispatchQueue.main.async {
+                        strongSelf.isLoadingMoreResults = false
+                        // Notify via callback
+                        comletion(newResults)
+                    }
+                case .failure(let failure):
+                    print(String(describing: failure))
+                    self?.isLoadingMoreResults = false
+                }
+            }
+        case .locations:
+            // TableView case
+            break
+        }
+    }
 }
 
 enum RMSearchResultType {
