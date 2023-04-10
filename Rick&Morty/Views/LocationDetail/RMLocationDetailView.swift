@@ -39,7 +39,6 @@ final class RMLocationDetailView: UIView {
     }()
     
     //MARK: - Init
-    
     override init(frame: CGRect) {
         super.init(frame: frame)
         translatesAutoresizingMaskIntoConstraints = false
@@ -58,13 +57,10 @@ final class RMLocationDetailView: UIView {
 
     
     //MARK: - Private
-    
     private func addConstraint() {
-        
         guard let collectionView = collectionView else {
             return
         }
-        
         NSLayoutConstraint.activate([
             spinner.heightAnchor.constraint(equalToConstant: 100),
             spinner.widthAnchor.constraint(equalToConstant: 100),
@@ -100,9 +96,7 @@ final class RMLocationDetailView: UIView {
     public func configure(with viewModel: RMLocationDetailViewViewModel) {
         self.viewModel = viewModel
     }
-    
 }
-
 
 extension RMLocationDetailView: UICollectionViewDelegate, UICollectionViewDataSource {
     
@@ -174,7 +168,6 @@ extension RMLocationDetailView: UICollectionViewDelegate, UICollectionViewDataSo
             }
             delegate?.rmEpisodeDetailView(self, didSelect: character)
         }
-        
     }
 }
 
@@ -199,25 +192,21 @@ extension RMLocationDetailView {
                 heightDimension: .fractionalHeight(1)
             )
         )
-        
         item.contentInsets = NSDirectionalEdgeInsets(top: 10, leading: 10, bottom: 10, trailing: 10)
-        
         let group = NSCollectionLayoutGroup.vertical(
             layoutSize: .init(
                 widthDimension: .fractionalWidth(1),
                 heightDimension: .absolute(80)
             ), subitems: [item]
         )
-        
         let section = NSCollectionLayoutSection(group: group)
-        
         return section
     }
     
     func createCharacterLayout() -> NSCollectionLayoutSection {
         let item = NSCollectionLayoutItem(
             layoutSize: .init(
-                widthDimension: .fractionalWidth(0.5),
+                widthDimension: .fractionalWidth(UIDevice.isiPhone ? 0.5 : 0.25),
                 heightDimension: .fractionalHeight(1.0)
             )
         )
@@ -232,12 +221,11 @@ extension RMLocationDetailView {
         let group = NSCollectionLayoutGroup.horizontal(
             layoutSize: .init(
                 widthDimension: .fractionalWidth(1.0),
-                heightDimension: .absolute(260)
-            ), subitems: [item, item]
+                heightDimension: .absolute(UIDevice.isiPhone ? 260 : 320)
+            ), subitems: UIDevice.isiPhone ? [item, item] : [item, item, item, item]
         )
         
         let section = NSCollectionLayoutSection(group: group)
-        
         return section
     }
 }

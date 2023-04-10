@@ -31,7 +31,7 @@ enum RMSettingsOption: CaseIterable {
         case .viewSeries:
             return URL(string: "https://rickandmortyapi.com/api")
         case .viewCode:
-            return URL(string: "https://rickandmortyapi.com/api")
+            return URL(string: "https://github.com/afrazCodes/RickAndMortyiOSAPP")
         }
     }
     
