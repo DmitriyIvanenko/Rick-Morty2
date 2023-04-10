@@ -83,7 +83,7 @@ final class RMEpisodeDetailViewViewModel {
                 let request = RMRequest(url: url) else {
             return
         }
-        RMServise.shared.execute(request, expecting: RMEpisode.self) { [weak self] resul in
+        RMService.shared.execute(request, expecting: RMEpisode.self) { [weak self] resul in
             switch resul {
             case .success(let model):
                 self?.fetchRelatedCharachter(episode: model)
@@ -105,7 +105,7 @@ final class RMEpisodeDetailViewViewModel {
         var characters: [RMCharacter] = []
         for request in requests {
             group.enter() // +20 increments every time
-            RMServise.shared.execute(request, expecting: RMCharacter.self) { result in
+            RMService.shared.execute(request, expecting: RMCharacter.self) { result in
                 defer {
                     group.leave() // -20 decrementing
                 }

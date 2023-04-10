@@ -23,7 +23,7 @@ class RMSearchViewController: UIViewController {
             case episode // name
             case location // name | type
             
-            var endpoint: RMEndPoint {
+            var endpoint: RMEndpoint {
                 switch self {
                 case .character:
                     return .character

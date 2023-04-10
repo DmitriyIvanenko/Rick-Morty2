@@ -65,24 +65,21 @@ final class RMSearchViewViewModel {
         // Ctreate request
         let request = RMRequest(
             endpoint: config.type.endpoint,
-            queryParamentrs: queryParams
+            queryParameters: queryParams
         )
         
         switch config.type.endpoint {
-            
         case .character:
             makeSearchApiCall(RMGetAllCharactersResponse.self, request: request)
         case .episode:
             makeSearchApiCall(RMGetAllEpisodesResponse.self, request: request)
         case .location:
             makeSearchApiCall(RMGetAllLocationsResponse .self, request: request)
-            
         }
-             
     }
     
     private func makeSearchApiCall<T: Codable>(_ type: T.Type, request: RMRequest) {
-        RMServise.shared.execute(request, expecting: type) { [weak self] result in
+        RMService.shared.execute(request, expecting: type) { [weak self] result in
             switch result {
             case .success(let model):
                 // Episodes, Characters - Collection View | Location - Table View
@@ -127,7 +124,6 @@ final class RMSearchViewViewModel {
             // Falback Error
             handleNoResults()
         }
-    
     }
     
     public func handleNoResults() {
@@ -155,8 +151,6 @@ final class RMSearchViewViewModel {
         }
         return searchModel.results[index]
     }
-    
-    
 }
 
 

@@ -34,9 +34,7 @@ final class RMCharacterCollectionViewCellViewModel: Hashable, Equatable {
             completion(.failure(URLError(.badURL)))
             return
         }
-                
         RMImageLoader.shared.downloadImage(url, completion: completion)
-
     }
     
     //Equatable
@@ -51,5 +49,4 @@ final class RMCharacterCollectionViewCellViewModel: Hashable, Equatable {
         hasher.combine(characterStatus)
         hasher.combine(characterImageUrl)
     }
-    
 }

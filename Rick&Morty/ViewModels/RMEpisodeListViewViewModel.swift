@@ -8,24 +8,16 @@
 import UIKit
 
 protocol RMEpisodeListViewViewModelDelegate: AnyObject {
-    
     func didLoadInitialEpisodes()
-    
     func didLoadMoreEpisodes(with newIndexPaths: [IndexPath])
-    
     func didSelectEpisode(_ episode: RMEpisode)
-    
 }
 
-//View model to handle episode list view logic
+// View model to handle episode list view logic
 final class RMEpisodeListViewViewModel: NSObject {
     
-    
     public weak var delegate: RMEpisodeListViewViewModelDelegate?
-    
-    
     private var isLoadingMoreCharacters = false
-    
     private let borderColors: [UIColor] = [
         .systemGreen,
         .systemBlue,
@@ -62,7 +54,7 @@ final class RMEpisodeListViewViewModel: NSObject {
     /// Fetch initial set of episodes (20)
     public func fetchEpisodes() {
 
-        RMServise.shared.execute(
+        RMService.shared.execute(
             .listEpisodesRequest,
             expecting: RMGetAllEpisodesResponse.self
         ) { [weak self] result in
@@ -96,7 +88,7 @@ final class RMEpisodeListViewViewModel: NSObject {
             return
         }
         
-        RMServise.shared.execute(request, expecting: RMGetAllEpisodesResponse.self) { [weak self] result in
+        RMService.shared.execute(request, expecting: RMGetAllEpisodesResponse.self) { [weak self] result in
             
             guard let strongSelf = self else {
                 return

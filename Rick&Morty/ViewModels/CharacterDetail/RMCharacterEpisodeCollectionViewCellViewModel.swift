@@ -63,7 +63,7 @@ final class RMCharacterEpisodeCollectionViewCellViewModel: Hashable, Equatable {
 
         isFetching = true
 
-        RMServise.shared.execute(request, expecting: RMEpisode.self) { [weak self] result in
+        RMService.shared.execute(request, expecting: RMEpisode.self) { [weak self] result in
             switch result {
             case .success(let model):
                 DispatchQueue.main.async {

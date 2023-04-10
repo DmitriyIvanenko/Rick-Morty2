@@ -99,8 +99,8 @@ extension RMCharacterListView: RMCharacterListViewViewModelDelegate {
     
     func didLoadInitialCharacter() {
         spinner.stopAnimating()
-        collectionView.reloadData()
         collectionView.isHidden = false
+        collectionView.reloadData()
         UIView.animate(withDuration: 0.4) {
             self.collectionView.alpha = 1
         }
@@ -111,6 +111,4 @@ extension RMCharacterListView: RMCharacterListViewViewModelDelegate {
             self.collectionView.insertItems(at: newIndexPaths)
         }
     }
-    
-    
 }

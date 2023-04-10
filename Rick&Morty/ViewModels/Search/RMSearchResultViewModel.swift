@@ -40,7 +40,7 @@ final class RMSearchResultViewModel {
             return
         }
         
-        RMServise.shared.execute(request, expecting: RMGetAllLocationsResponse.self) { [weak self] result in
+        RMService.shared.execute(request, expecting: RMGetAllLocationsResponse.self) { [weak self] result in
             guard let strongSelf = self else {
                 return
             }
@@ -98,7 +98,7 @@ final class RMSearchResultViewModel {
         switch results {
             // Charachters
         case .charachters(let existingResults):
-            RMServise.shared.execute(request, expecting: RMGetAllCharactersResponse.self) { [weak self] result in
+            RMService.shared.execute(request, expecting: RMGetAllCharactersResponse.self) { [weak self] result in
                 guard let strongSelf = self else {
                     return
                 }
@@ -130,7 +130,7 @@ final class RMSearchResultViewModel {
             }
             // Episodes
         case .episodes(let existingResults):
-            RMServise.shared.execute(request, expecting: RMGetAllEpisodesResponse.self) { [weak self] result in
+            RMService.shared.execute(request, expecting: RMGetAllEpisodesResponse.self) { [weak self] result in
                 guard let strongSelf = self else {
                     return
                 }

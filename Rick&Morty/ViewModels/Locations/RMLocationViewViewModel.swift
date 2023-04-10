@@ -67,7 +67,7 @@ final class RMLocationViewViewModel {
             return
         }
         
-        RMServise.shared.execute(request, expecting: RMGetAllLocationsResponse.self) { [weak self] result in
+        RMService.shared.execute(request, expecting: RMGetAllLocationsResponse.self) { [weak self] result in
             guard let strongSelf = self else {
                 return
             }
@@ -102,7 +102,7 @@ final class RMLocationViewViewModel {
     }
     
     public func fetchLocations() {
-        RMServise.shared.execute(
+        RMService.shared.execute(
             .listLocationsRequest,
             expecting: RMGetAllLocationsResponse.self
         ) { [weak self] result in
