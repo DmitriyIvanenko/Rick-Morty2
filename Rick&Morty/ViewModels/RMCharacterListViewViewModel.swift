@@ -87,15 +87,10 @@ final class RMCharacterListViewViewModel: NSObject {
             }
             
             switch result {
-                
             case .success(let responseModel):
-                print("Pre update: \(strongSelf.cellViewModels.count)")
                 let moreResults = responseModel.results
                 let info = responseModel.info
                 strongSelf.appInfo = info
-                
-                print(moreResults.count)
-                
                 let originalCount = strongSelf.characters.count
                 let newCount = moreResults.count
                 let total = originalCount + newCount
@@ -114,7 +109,7 @@ final class RMCharacterListViewViewModel: NSObject {
                     strongSelf.delegate?.didLoadMoreCharacters(
                         with: indexPathToAdd
                     )
-                    
+
                     strongSelf.isLoadingMoreCharacters = false
                 }
                 

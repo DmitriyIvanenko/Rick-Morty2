@@ -22,7 +22,7 @@ final class RMSearchView: UIView {
     
     private let searchInputView = RMSearchInputView()
 
-    private let noResultsView = RMNosearchResultsView()
+    private let noResultsView = RMNoSearchResultsView()
     
     private let resultsView = RMSearchResultsView()
     

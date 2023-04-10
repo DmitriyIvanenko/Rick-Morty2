@@ -14,7 +14,6 @@ final class RMCharacterCollectionViewCellViewModel: Hashable, Equatable {
     private let characterImageUrl: URL?
     
     //MARK: - Init
-
     init(
         characterName: String,
         characterStatus: RMCharacterStatus,
@@ -40,13 +39,13 @@ final class RMCharacterCollectionViewCellViewModel: Hashable, Equatable {
 
     }
     
-    //MARK: - Hashable
-    
+    //Equatable
     static func == (lhs: RMCharacterCollectionViewCellViewModel,
                     rhs: RMCharacterCollectionViewCellViewModel) -> Bool {
         return lhs.hashValue == rhs.hashValue
     }
     
+    //Hashable
     func hash(into hasher: inout Hasher) {
         hasher.combine(characterName)
         hasher.combine(characterStatus)
