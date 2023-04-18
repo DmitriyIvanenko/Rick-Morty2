@@ -10,6 +10,8 @@ import UIKit
 protocol RMSearchViewDelegate: AnyObject {
     func rmSearchView(_ inputView: RMSearchView, didSelectOption option: RMSearchInputViewViewModel.DynamicOptions)
     func rmSearchView(_ inputView: RMSearchView, didSelectLocation location: RMLocation)
+    func rmSearchView(_ inputView: RMSearchView, didSelectCharacter character: RMCharacter)
+    func rmSearchView(_ inputView: RMSearchView, didSelectEpisode episode: RMEpisode)
 }
 
 final class RMSearchView: UIView {
@@ -118,7 +120,6 @@ extension RMSearchView: UICollectionViewDelegate, UICollectionViewDataSource {
 }
 
 // MARK: - RMSearchInputViewDelegate
-
 extension RMSearchView: RMSearchInputViewDelegate {
     
     func rmSearchInputView(_ inputView: RMSearchInputView, didSelectOption option: RMSearchInputViewViewModel.DynamicOptions) {
@@ -132,19 +133,30 @@ extension RMSearchView: RMSearchInputViewDelegate {
     func rmSearchInputViewDidTapSearchKeyboardButton(_ inputView: RMSearchInputView) {
         viewModel.executeSearch()
     }
-    
-    
 }
 
+// MARK: - RMSearchResultsViewDelegate
 extension RMSearchView: RMSearchResultsViewDelegate {
+    
     func rmSearchResultsView(_ resultsView: RMSearchResultsView, didTapLocationAt index: Int) {
-      
         guard let locationModel = viewModel.locationSearchResultAt(at: index) else {
             return
         }
         delegate?.rmSearchView(self, didSelectLocation: locationModel)
     }
     
+    func rmSearchResultsView(_ resultsView: RMSearchResultsView, didTapEpisodeAt index: Int) {
+        guard let episodeUrl = viewModel.episodeSearchResult(at: index) else {
+            return
+        }
+        delegate?.rmSearchView(self, didSelectEpisode: episodeUrl)
+    }
     
+    func rmSearchResultsView(_ resultsView: RMSearchResultsView, didTapCharacterAt index: Int) {
+        guard let characterModel = viewModel.characterSearchResult(at: index) else {
+            return
+        }
+        delegate?.rmSearchView(self, didSelectCharacter: characterModel)
+    }
 }
 

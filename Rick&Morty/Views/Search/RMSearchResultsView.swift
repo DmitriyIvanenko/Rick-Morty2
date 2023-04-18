@@ -9,6 +9,8 @@ import UIKit
 
 protocol RMSearchResultsViewDelegate: AnyObject {
     func rmSearchResultsView(_ resultsView: RMSearchResultsView, didTapLocationAt index: Int )
+    func rmSearchResultsView(_ resultsView: RMSearchResultsView, didTapCharacterAt index: Int )
+    func rmSearchResultsView(_ resultsView: RMSearchResultsView, didTapEpisodeAt index: Int )
 }
 
 /// Shows searcxh results UI (table or collection as needed)
@@ -33,7 +35,7 @@ final class RMSearchResultsView: UIView {
     private let collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
-        layout.sectionInset = UIEdgeInsets(top: 0, left: 10, bottom: 10, right: 10)
+        layout.sectionInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
         layout.minimumLineSpacing = 20
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.isHidden = true
@@ -126,7 +128,6 @@ final class RMSearchResultsView: UIView {
     public func cofigure(with viewModel: RMSearchResultViewModel) {
         self.viewModel = viewModel
     }
-    
 }
 
 
@@ -135,7 +136,6 @@ extension RMSearchResultsView: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return locationCellViewModels.count
     }
-    
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: RMLocationTableViewCell.cellIdentifier, for: indexPath) as? RMLocationTableViewCell else {
@@ -150,7 +150,6 @@ extension RMSearchResultsView: UITableViewDataSource, UITableViewDelegate {
         
         delegate?.rmSearchResultsView(self, didTapLocationAt: indexPath.row)
     }
-    
 }
 
 
@@ -193,9 +192,17 @@ extension RMSearchResultsView: UICollectionViewDelegate, UICollectionViewDataSou
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         collectionView.deselectItem(at: indexPath, animated: true)
-        
-        // TODO: Handle cell tap
-        
+        guard let viewModel = viewModel else {
+            return
+        }
+        switch viewModel.results {
+        case .charachters:
+            delegate?.rmSearchResultsView(self, didTapCharacterAt: indexPath.row)
+        case .episodes:
+            delegate?.rmSearchResultsView(self, didTapEpisodeAt: indexPath.row)
+        case .locations:
+            break
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
