@@ -89,8 +89,9 @@ final class RMLocationView: UIView {
     public func configure(with viewModel: RMLocationViewViewModel) {
         self.viewModel = viewModel
     }
-    
 }
+
+// MARK: - UITableViewDelegate
 
 extension RMLocationView: UITableViewDelegate {
     
@@ -104,6 +105,8 @@ extension RMLocationView: UITableViewDelegate {
     }
 
 }
+
+// MARK: - UITableViewDataSource
 
 extension RMLocationView: UITableViewDataSource {
 
@@ -129,7 +132,10 @@ extension RMLocationView: UITableViewDataSource {
     
 }
 
+// MARK: - UIScrollViewDelegate
+
 extension RMLocationView: UIScrollViewDelegate {
+    
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         guard let viewModel = viewModel,
               !viewModel.cellViewModels.isEmpty,
@@ -144,9 +150,7 @@ extension RMLocationView: UIScrollViewDelegate {
             let totalScrollViewFixedHeight = scrollView.frame.size.height
             
             if offset >= (totalContentHeight - totalScrollViewFixedHeight - 120) {
-                DispatchQueue.main.async {
-                    self?.showLoadingIndicator()
-                }
+                self?.showLoadingIndicator()
                 viewModel.fetchAdditionalLocations()
             }
             t.invalidate()
@@ -157,5 +161,4 @@ extension RMLocationView: UIScrollViewDelegate {
         let footer = RMTableLoadingFooterView(frame: CGRect(x: 0, y: 0, width: frame.size.width, height: 100))
         tableView.tableFooterView = footer
     }
-    
 }
