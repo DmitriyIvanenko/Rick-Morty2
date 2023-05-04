@@ -44,12 +44,22 @@ final class CharacterVC: UIViewController, RMCharacterListViewDelegate {
     //MARK: - Delegate Implementation
 
     func rmCharacterListView(_ characterListView: RMCharacterListView, didSelectCharacter character: RMCharacter) {
+        
+        // Analytics
+        AnalyticsManager.shared.log(
+            .characterSelected(
+                .init(
+                    character: character.name,
+                    origin: "CharacterVC",
+                    timestamp: Date()
+                )
+            )
+        )
+        
         // Open detail controller for that character
         let viewModel = RMCharacterDetailViewViewModel(character: character)
         let detailVC = RMCharacterDetailVC(viewModel: viewModel)
         detailVC.navigationItem.largeTitleDisplayMode = .never
         navigationController?.pushViewController(detailVC, animated: true)
     }
-    
-    
 }

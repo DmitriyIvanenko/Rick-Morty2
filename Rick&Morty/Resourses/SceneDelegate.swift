@@ -11,9 +11,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
 
-
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-        
         guard let windowSceen = (scene as? UIWindowScene) else { return }
         let vc = TabBarController()
         let window = UIWindow(windowScene: windowSceen)
@@ -23,7 +21,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
- 
     }
 
     func sceneDidBecomeActive(_ scene: UIScene) {
@@ -33,11 +30,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
 
     func sceneWillEnterForeground(_ scene: UIScene) {
-
     }
 
     func sceneDidEnterBackground(_ scene: UIScene) {
-    
     }
 }
 
