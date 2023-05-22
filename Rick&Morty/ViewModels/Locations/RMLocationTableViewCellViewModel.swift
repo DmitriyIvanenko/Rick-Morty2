@@ -37,6 +37,4 @@ struct RMLocationTableViewCellViewModel: Hashable, Equatable {
         hasher.combine(dimension)
         hasher.combine(type)
     }
-    
-    
 }
