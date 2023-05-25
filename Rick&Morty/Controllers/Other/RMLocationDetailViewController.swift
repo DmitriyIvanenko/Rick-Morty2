@@ -70,6 +70,4 @@ final class RMLocationDetailViewController: UIViewController, RMLocationDetailVi
     func didFetchLocationDetails() {
         detailView.configure(with: viewModel)
     }
-    
-    
 }
