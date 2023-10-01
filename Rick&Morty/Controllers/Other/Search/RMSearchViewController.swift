@@ -122,7 +122,7 @@ extension RMSearchViewController: RMSearchViewDelegate {
     }
     
     func rmSearchView(_ inputView: RMSearchView, didSelectLocation location: RMLocation) {
-        let vc = RMLocationDetailViewController(location: location)
+        let vc = RMLocationDetailVC(location: location)
         vc.navigationItem.largeTitleDisplayMode = .never
         navigationController?.pushViewController(vc, animated: true)
     }
@@ -134,7 +134,7 @@ extension RMSearchViewController: RMSearchViewDelegate {
     }
     
     func rmSearchView(_ inputView: RMSearchView, didSelectEpisode episode: RMEpisode) {
-        let vc = RMEpisodeDetailViewController(url: URL(string: episode.url))
+        let vc = RMEpisodeDetailVC(url: URL(string: episode.url))
         vc.navigationItem.largeTitleDisplayMode = .never
         navigationController?.pushViewController(vc, animated: true)
     }
